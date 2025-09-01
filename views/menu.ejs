@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+</head>
+<body>
+    <%- include('partials/nav') %>
+    <h1>Menu</h1>
+    <% const categories = ['Mains', 'Desserts', 'Sides']; %>
+    <% categories.forEach(function(cat) { 
+        const key = cat.toLowerCase();
+        const heading = cat;
+        const itemsInCategory = menu.filter(i => i.category === key);
+    %>
+        <h2><%= heading %></h2>
+        <% if (itemsInCategory.length === 0) { %>
+            <p>No items in thise category</p>
+        <% } else { %>
+            <% itemsInCategory.forEach(function(item) { %>
+                <div class="item">
+                    <div class="name">
+                        <%= item.name %>
+                        <% if (item.rating === 5) {
+                            %> ⭐ <%
+                        } %>
+                    </div>
+                    <div class="info">
+                        Price: $<%= item.price %>
+                        Rating: <%= item.rating %>/5
+                    </div>
+                    <p><em><%= item.details %></em></p>
+                 </div>
+            <% }) %>
+        <% } %>
+    <% }) %>
+</body>
+</html>
